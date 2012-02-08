@@ -56,6 +56,31 @@ include_once "iso_fields.php";
 include_once "iso_recipes.php";
 
 // ############################################################################
+// # Graphic Boolean
+// ############################################################################
+
+function boolMark($statement, $type = "", $size = "")
+	{
+	switch($type)
+		{
+		case "text":
+			if($statement)	{ return "<span style='display: inline; color: #00FF00; font-weight: bold; padding-bottom: 2px; ".($size ? "font-size: ".intval($size*.9)."px;" : "")."'>&radic;</span>"; }
+			else			{ return "<span style='display: inline; color: #FF0000; font-weight: bold; padding-bottom: 2px; ".($size ? "font-size: ".intval($size* 1)."px;" : "")."'>&times;</span>"; }
+			break;
+
+		case "image":
+			if($statement)	{ return "icon_check.png"; }
+			else			{ return "icon_xmark.png"; }
+			break;
+
+		default:
+			if($statement)	{ return "<img src='images/icon_check.png' border='0' ".($size ? "height='".$size."' width='".$size."'" : "")." />"; }
+			else			{ return "<img src='images/icon_xmark.png' border='0' ".($size ? "height='".$size."' width='".$size."'" : "")." />"; }
+			break;
+		}
+	}
+
+// ############################################################################
 // # Clean File Name
 // ############################################################################
 

@@ -66,13 +66,17 @@ A { text-decoration: none; color: black; }
 
 <?php if(count($config["logo"])) { echo "<hr />"; } ?>
 
-
-<?php if($config["options"]["showrefresh"]) { ?>
-<p><small><a href="menu.php">Refresh</a></small></p>
-<p><small><a href="about.php" target="content">PHP Info</a></small></p>
-<?php } ?>
-
 <ul class="topNav">
+
+	<?php if($config["options"]["showrefresh"]) { ?>
+		<li>Development</li>
+		<ul>
+			<li><a href="menu.php">Refresh</a>
+			<li><a href="about.php" target="content">PHP Info</a>
+			<li><a href="scratch.php" target="content">Scratch</a>
+			<li><a href="blank.php" target="content">Blank</a>
+		</ul>
+	<?php } ?>
 
 	<?php if(is_dir($Root."\\isos")) { ?>
 		<li>Bootable Images</li>
@@ -84,7 +88,13 @@ A { text-decoration: none; color: black; }
 		</ul>
 	<?php }?>
 
-	<?php if(is_dir($Root."\\capture")) { ?>
+	<li>Tools
+	<ul>
+		<li><a href="tools_check.php" target="content">Check for Tools</a>
+
+	</ul>
+
+	<?php if(is_dir($Root."\\utilities")) { ?>
 		<li>Live Capture</li>
 		<ul>
 			<li><a href="capture_maintain.php" target="content">Maintain Tools</a>
@@ -94,8 +104,8 @@ A { text-decoration: none; color: black; }
 		</ul>
 	<?php } ?>
 
-	<?php if(is_dir($Root."\\capture") && count(glob($Root."\\capture\\*.*"))) { ?>
-		<li>Live Capture</li>
+	<?php if(is_dir($Root."\\output") && count(glob($Root."\\output\\*.*"))) { ?>
+		<li>Post Capture</li>
 		<ul>
 			<li><a href="post_quick.php" target="content">Quick Search</a>
 		</ul>

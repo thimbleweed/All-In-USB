@@ -26,7 +26,7 @@ $Root = getRoot();
 
 if(!$_FILES["file"]["error"] && $_FILES["file"]["size"])
 	{
-	if(move_uploaded_file($_FILES["file"]["tmp_name"],$Root."\\capture\\".$_REQUEST["filename"]))
+	if(move_uploaded_file($_FILES["file"]["tmp_name"],$Root."\\utilities\\".$_REQUEST["filename"]))
 		{ $Msg = "Uploaded Successful: <a href='capture_maintain_config.php?action=load&executable=".$_REQUEST["filename"]."'>Configure</a>"; }
 	else
 		{ $Msg = "Upload failed"; }
@@ -68,7 +68,7 @@ FORM { padding: 0px; margin: 0px; }
 
 <?php echo $Msg; ?>
 
-<p>Multiple files can be installed by going to <?php echo $Root; ?>\capture and placing the files there.</p>
+<p>Multiple files can be installed by going to <?php echo $Root; ?>\utilities and placing the files there.</p>
 
 <p>This function should not be utilized on a target machine.<br /> Files are initially written to the temporary folder of the logged in user.</p>
 

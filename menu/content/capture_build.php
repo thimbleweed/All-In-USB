@@ -24,7 +24,7 @@
 include "functions.php";
 $Root = getRoot();
 global $Files;
-getFiles($Root."\\capture");
+getFiles($Root."\\utilities");
 
 // ############################################################################
 // # Initial Parse of Capture Tools
@@ -35,7 +35,7 @@ foreach($Files AS $File)
 	if(substr($File,-4) != ".twc")
 		{
 		unset($Name);
-		$tFile = str_replace($Root."\\capture\\","",$File);
+		$tFile = str_replace($Root."\\utilities\\","",$File);
 		if(in_array($File.".twc",$Files))
 			{
 			$tCap = parse_ini_file($File.".twc",true);
@@ -92,7 +92,7 @@ if($_REQUEST["captureName"])
 		if($Params["enable"])
 			{
 			$RunList[$Run]["nice"] = $Params["nice"];
-			$RunList[$Run]["cmd"]  = "%1\\capture\\".$Params["exe"]." ".$Params["args"];
+			$RunList[$Run]["cmd"]  = "%1\\utilities\\".$Params["exe"]." ".$Params["args"];
 			$RunList[$Run]["log"]  = "%1\\output\\%computername%\\".$Run."-%computername%.txt";
 			}
 		}

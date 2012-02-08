@@ -23,5 +23,15 @@
 
 include "functions.php";
 $Root = getRoot();
-exec($Root."\\utilities\metapad.exe");
 
+?><html>
+<head>
+<title>PHP Template</title>
+</head>
+<body>
+
+<?php echo str_replace(".","",strtoupper(uniqid("BOOT-",true))); ?>
+
+
+</body>
+</html>

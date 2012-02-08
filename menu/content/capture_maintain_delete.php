@@ -36,8 +36,8 @@ if($_REQUEST["action"] == "delete" && count($_REQUEST["executable"]))
 	{
 	foreach($_REQUEST["executable"] AS $exe)
 		{
-		@unlink($Root."\\capture\\".$exe);
-		if(!$_REQUEST["keeptwc"]) { @unlink($Root."\\capture\\".$exe.".twc"); }
+		@unlink($Root."\\utilities\\".$exe);
+		if(!$_REQUEST["keeptwc"]) { @unlink($Root."\\utilities\\".$exe.".twc"); }
 		}
 	}
 
@@ -46,7 +46,7 @@ if($_REQUEST["action"] == "delete" && count($_REQUEST["executable"]))
 // ############################################################################
 
 global $Files;
-getFiles($Root."\\capture");
+getFiles($Root."\\utilities");
 if(!is_array($_REQUEST["executable"])) { $_REQUEST["executable"] = array(); }
 
 // ############################################################################
@@ -58,7 +58,7 @@ foreach($Files AS $File)
 	if(substr($File,-4) != ".twc")
 		{
 		unset($Name);
-		$tFile = str_replace($Root."\\capture\\","",$File);
+		$tFile = str_replace($Root."\\utilities\\","",$File);
 		if(in_array($File.".twc",$Files))
 			{
 			$tCap = parse_ini_file($File.".twc",true);

@@ -1,0 +1,9 @@
+[tools]
+sig_file="unxutils"
+sig_type="dir"
+sig_tab="Essentials"
+
+title="UnxUtils"
+description="These tools are ports of common Unix utilities so that they can run on Windows."
+link="http://sourceforge.net/projects/unxutils/files/latest/download"
+link_type="link"

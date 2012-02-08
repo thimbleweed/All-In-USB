@@ -24,7 +24,7 @@
 include "functions.php";
 $Root = getRoot();
 
-$exe = $Root."\\capture\\".$_REQUEST["exe"];
+$exe = $Root."\\utilities\\".$_REQUEST["exe"];
 
 switch($_REQUEST["type"])
 	{

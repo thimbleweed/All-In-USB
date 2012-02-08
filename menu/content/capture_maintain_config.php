@@ -45,7 +45,7 @@ if($_REQUEST["action"] == "save" && $_REQUEST["executable"])
 		$twc .= $Field .' = "'. $_REQUEST[$Field].'"'."\n";
 		}
 
-	$file = $Root."\\capture\\".$_REQUEST["executable"].".twc";
+	$file = $Root."\\utilities\\".$_REQUEST["executable"].".twc";
 	file_put_contents($file,$twc);
 	unset($_REQUEST);
 	}
@@ -55,7 +55,7 @@ if($_REQUEST["action"] == "save" && $_REQUEST["executable"])
 // ############################################################################
 
 global $Files;
-getFiles($Root."\\capture");
+getFiles($Root."\\utilities");
 
 // ############################################################################
 // # Initial Parse of Capture Tools
@@ -66,7 +66,7 @@ foreach($Files AS $File)
 	if(substr($File,-4) != ".twc")
 		{
 		unset($Name);
-		$tFile = str_replace($Root."\\capture\\","",$File);
+		$tFile = str_replace($Root."\\utilities\\","",$File);
 		if(in_array($File.".twc",$Files))
 			{
 			$tCap = parse_ini_file($File.".twc",true);
@@ -200,7 +200,7 @@ function validateEdit(F)
 					<?php echo $_REQUEST["executable"]; ?>
 					<input type="hidden" name="executable" value="<?php echo $_REQUEST['executable']; ?>" />
 					<?php
-						$tTWC = $Root."\\capture\\".$_REQUEST["executable"].".twc";
+						$tTWC = $Root."\\utilities\\".$_REQUEST["executable"].".twc";
 						if(is_file($tTWC))	{ $tCap = parse_ini_file($tTWC,true); $tCap = $tCap["capture"]; }
 						else				{ $tCap = array(); }
 					?>

@@ -1,0 +1,5 @@
+[capture]
+name = "NET USER"
+tab = "Users"
+manpage = "TGlzdCB0aGUgdXNlciBhY2NvdW50cyBmb3IgdGhlIGNvbXB1dGVyLg=="
+defaults = ""

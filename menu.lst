@@ -1,0 +1,18 @@
+default hd(0,0)/default
+timeout 30
+color light-green/black yellow/black white/green light-green/green
+
+title BackTrack 5R1\nThe BackTrack ISO
+map (hd0,0)/isos/BT5R1-GNOME-32.iso (0xFF)
+map --hook
+kernel (0xff)/boot/vmlinuz loop=/isos/BT5R1-GNOME-32.iso boot=casper nopersistent vga=0x317 --
+initrd /boot/backtrack/initrd-mod-4.gz
+savedefault
+
+title Windows 7 Installation\nInstall x32 version of Windows
+map (hd0,0)/isos/en_windows_7_home_basic_with_sp1_x86_dvd_u_676470.iso (0xFF)
+map --hook
+root (0xFF)
+chainloader (0xFF)
+boot
+savedefault

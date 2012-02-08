@@ -1,0 +1,9 @@
+[tools]
+sig_file="sysint"
+sig_type="dir"
+sig_tab="Essentials"
+
+title="SysInternals Suite"
+description="The SysInternals Suite provides many useful tools. Microsoft unfortunately does not permit redistribution however it really should be downloaded for every All-in-USB key."
+link="http://technet.microsoft.com/en-us/sysinternals/bb842062"
+link_type="link"
