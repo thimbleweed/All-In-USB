@@ -21,12 +21,12 @@
 |                                                                      |
 \******************************************************************** */
 
-// ############################################################################
-// # Fields
-// ############################################################################
+?><html>
+<head><title>TWC Sec Forensic Toolkit</title></head>
 
-$isoFields["image"]		= array("required" => 1,	"label" => "Image File",	"type" => "sel-iso",	"width" => 50);
-$isoFields["name"]		= array("required" => 1,	"label" => "Title",			"type" => "text",		"width" => 50);
-$isoFields["desc"]		= array("required" => 0,	"label" => "Description",	"type" => "text",		"width" => 50);
-$isoFields["grub"]		= array("required" => 1,	"label" => "Boot Recipe",	"type" => "area-grub",	"width" => 70, "height" => 10);
+<frameset rows="50,*">
+  <frame name="iso_menu" frameborder="0" src="iso_items_menu.php" />
+  <frame name="iso_content" frameborder="0" src="blank.php" />
+</frameset>
 
+</html>

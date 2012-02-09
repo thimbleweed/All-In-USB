@@ -32,12 +32,12 @@ $Root = getRoot();
 // # If "Saving" Remove the Files
 // ############################################################################
 
-if($_REQUEST["action"] == "delete" && count($_REQUEST["executable"]))
+if($_REQUEST["action"] == "delete" && count($_REQUEST["config"]))
 	{
-	foreach($_REQUEST["executable"] AS $exe)
+	foreach($_REQUEST["config"] AS $exe)
 		{
-		@unlink($Root."\\utilities\\".$exe);
-		if(!$_REQUEST["keeptwc"]) { @unlink($Root."\\utilities\\".$exe.".twc"); }
+		@unlink($Root."\\isos\\".$exe);
+		if(!$_REQUEST["keeptwc"]) { @unlink($Root."\\isos\\".$exe.".twc"); }
 		}
 	}
 
@@ -46,34 +46,24 @@ if($_REQUEST["action"] == "delete" && count($_REQUEST["executable"]))
 // ############################################################################
 
 global $Files;
-getFiles($Root."\\utilities");
-if(!is_array($_REQUEST["executable"])) { $_REQUEST["executable"] = array(); }
+getFiles($Root."\\isos");
+if(!is_array($_REQUEST["config"])) { $_REQUEST["config"] = array(); }
 
 // ############################################################################
-// # Initial Parse of Capture Tools
+// # Initial Parse of Boot Items
 // ############################################################################
 
-foreach($Files AS $File)
+foreach(glob($Root."\\isos\\*.twc") AS $File)
 	{
-	if(substr($File,-4) != ".twc")
-		{
-		unset($Name);
-		$tFile = str_replace($Root."\\utilities\\","",$File);
-		if(in_array($File.".twc",$Files))
-			{
-			$tCap = parse_ini_file($File.".twc",true);
-			$tCap = $tCap["capture"];
-			$Missing = false;
-			foreach($Fields AS $Field => $Params) { if($Params["required"] && !$tCap[$Field]) { $Missing = true; } }
-			$Stat = $Missing ? 1 : 2;
-			$Tabs[$tCap["tab"]] = 1;
-			$Name = trim(trim(trim($tFile." - ".$tCap["name"]),"-"));
-			}
-		else
-			{ $Stat = 0; }
-		$Captures[$tFile]["stat"] =  $Stat;
-		$Captures[$tFile]["name"] =  $Name ? $Name : $tFile;
-		}
+	$tCap = parse_ini_file($File,true);
+	$tCap = $tCap["iso"];
+	$Missing = false;
+	foreach($isoFields AS $isoField => $Params) { if($Params["required"] && !$tCap[$isoField]) { $Missing = true; } }
+	$Stat = $Missing ? 1 : 2;
+	$Name = trim(trim(trim($tFile." - ".$tCap["name"]),"-"));
+
+	$ISOs[basename($File)]["stat"] =  $Stat;
+	$ISOs[basename($File)]["name"] =  $Name;
 	}
 
 ?><html>
@@ -109,10 +99,10 @@ FORM { padding: 0px; margin: 0px; }
 			<tr><th colspan="2"><span style="color: red;">CANNOT</span> be undone!</th></tr>
 			<tr>
 				<td colspan="2">
-					<select name="executable[]" size="20" style="width: 500px" multiple="multiple">
+					<select name="config[]" size="20" style="width: 500px" multiple="multiple">
 						<toption value="New">Add New Capture Tool</toption>
-						<?php foreach($Captures AS $Capture => $Params) { ?>
-							<option value="<?php echo $Capture; ?>" <?php echo in_array($Capture,$_REQUEST["executable"]) ? 'selected="selected"' : ''; ?>>
+						<?php foreach($ISOs AS $ISO => $Params) { ?>
+							<option value="<?php echo $ISO; ?>" <?php echo in_array($ISO,$_REQUEST["config"]) ? 'selected="selected"' : ''; ?>>
 								<?php
 								echo $Params["name"];
 								?></option>
@@ -121,13 +111,7 @@ FORM { padding: 0px; margin: 0px; }
 				</td>
 			</tr>
 			<tr>
-				<td width="50%"><button class="tool_del" type="submit">Permanently Remove</button></td>
-				<td width="50%">
-					<label for="keeptwc">
-						<input type="checkbox" name="keeptwc" id="keeptwc" value="1">
-						Retain Configuration File
-					</label>
-				</td>
+				<td align="center" colspan="2"><button class="tool_del" type="submit">Permanently Remove</button></td>
 			</tr>
 			<tr><td align="center" colspan="2"><small>Hold down Ctrl to select multiple files.</small></td></tr>
 		</table>

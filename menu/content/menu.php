@@ -82,7 +82,7 @@ A { text-decoration: none; color: black; }
 		<li>Bootable Images</li>
 		<ul>
 			<?php if(!glob($Root."\\isos\\*.*")) { echo "<li>!! No ISOs Installed !!</li>\n"; } ?>
-			<li><a href="iso_config.php" target="content">Configure ISO</a>
+			<li><a href="iso_items.php" target="content">Configure Boot Items</a>
 			<li><a href="iso_bootmenu.php" target="content">Configure Boot Menu</a>
 			<li><a href="iso_boot_build.php" target="content">Rebuild Boot Menu</a>
 		</ul>

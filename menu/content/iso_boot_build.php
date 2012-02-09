@@ -24,9 +24,6 @@
 include "functions.php";
 $Root = getRoot();
 
-global $Files;
-getFiles($Root."\\isos");
-
 ?><html>
 <head>
 <title>Configure Boot Menu</title>
@@ -59,9 +56,9 @@ if(		$config["boot"]["normal_text"]
 
 	$Menu[] = "color ".$Norm." ".$High." ".$Help." ".$Head;
 
-	foreach($config["boot"]["images"] AS $Image)
+	foreach(glob($Root."\\isos\\*.twc") AS $Image)
 		{
-		$tCnf = parse_ini_file($Root."\\isos\\".$Image.".twc",true);
+		$tCnf = parse_ini_file($Image,true);
 		$tCnf = $tCnf["iso"];
 		$Missing = false;
 		foreach($isoFields AS $isoField => $Params) { if($Params["required"] && !$tCnf[$isoField]) { $Missing = true; } }
@@ -75,7 +72,7 @@ if(		$config["boot"]["normal_text"]
 
 			$Menu[] = "";
 			$Menu[] = "title ".$tCnf["name"].($tCnf["desc"] ? "\\n".$tCnf["desc"] : "");
-			$Menu[] = str_replace("%image%",$Image,$tCnf["grub"]);
+			$Menu[] = str_replace("%image%",$tCnf["image"],$tCnf["grub"]);
 			$Menu[] = "savedefault";
 			}
 		else

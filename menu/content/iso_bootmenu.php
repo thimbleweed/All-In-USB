@@ -44,30 +44,31 @@ getFiles($Root."\\isos");
 if($_REQUEST["action"] == "save")
 	{
 	unset($_REQUEST["action"]);
+	$saveImages = $_REQUEST["images"];
 	$_REQUEST["images"] = base64_encode(stripslashes(trim(serialize($_REQUEST["images"]))));
 	foreach($_REQUEST AS $Field => $Value) { $config["boot"][$Field] = $Value; }
 	writeConfig("config.ini",$config);
 	unset($_REQUEST);
+	$config["boot"]["images"] = $saveImages;
 	}
 
 // ############################################################################
-// # Initial Parse of ISOs
+// # Initial Parse of Boot Items
 // ############################################################################
 
 $Available = array();
-foreach($Files AS $File)
+foreach(glob($Root."\\isos\\*.twc") AS $File)
 	{
-	if(substr($File,-4) == ".twc")
-		{
-		$tCap = parse_ini_file($File,true);
-		$tCap = $tCap["iso"];
-		$Missing = false;
-		foreach($isoFields AS $isoField => $Params) { if($Params["required"] && !$tCap[$isoField]) { $Missing = true; } }
-		if(!$Missing)
-			{
-			$Available[str_replace($Root."\\isos\\","",substr($File,0,-4))] = $tCap;
-			}
-		}
+	$tCap = parse_ini_file($File,true);
+	$tCap = $tCap["iso"];
+	$Missing = false;
+	foreach($isoFields AS $isoField => $Params) { if($Params["required"] && !$tCap[$isoField]) { $Missing = true; } }
+	$Stat = $Missing ? 1 : 2;
+	$Name = trim(trim(trim($tFile." - ".$tCap["name"]),"-"));
+
+	$Available[basename($File)]["stat"] =  $Stat;
+	$Available[basename($File)]["name"] =  $Name;
+	$Available[basename($File)]["desc"] =  $tCap["desc"];
 	}
 ksort($Available);
 
@@ -115,7 +116,7 @@ tr.activeRow tr td { background-color: #FF0000; }
 				<?php foreach($Available AS $Image => $Params) { ?>
 					<tr valign="top">
 						<td><input type="checkbox" name="images[]" value="<?php echo $Image; ?>" <?php echo in_array($Image,$config["boot"]["images"]) ? "checked='checked'" : ""; ?> /></td>
-						<td><?php echo $Image; ?></td>
+						<td><?php echo $Params["name"]; ?></td>
 						<td><?php echo $Params["desc"]; ?></td>
 					</tr>
 				<?php } ?>

@@ -34,7 +34,7 @@ $Root = getRoot();
 
 if($_REQUEST["action"] == "save" && $_REQUEST["image"])
 	{
-	$file = $Root."\\isos\\".$_REQUEST["filename"]; unset($_REQUEST["filename"]);
+	$file = $Root."\\isos\\".str_replace(".","",strtoupper(uniqid("BOOT-",true))).".twc";
 
 	unset($_REQUEST["action"]);
 	unset($_REQUEST["grub_defaults"]);
@@ -43,23 +43,6 @@ if($_REQUEST["action"] == "save" && $_REQUEST["image"])
 	writeConfig($file,$bootIso);
 	unset($_REQUEST);
 	$Msg = "Saved Boot Menu Item";
-	}
-
-// ############################################################################
-// # Initial Parse of Boot Items
-// ############################################################################
-
-foreach(glob($Root."\\isos\\*.twc") AS $File)
-	{
-	$tCap = parse_ini_file($File,true);
-	$tCap = $tCap["iso"];
-	$Missing = false;
-	foreach($isoFields AS $isoField => $Params) { if($Params["required"] && !$tCap[$isoField]) { $Missing = true; } }
-	$Stat = $Missing ? 1 : 2;
-	$Name = trim(trim(trim($tFile." - ".$tCap["name"]),"-"));
-
-	$ISOs[basename($File)]["stat"] =  $Stat;
-	$ISOs[basename($File)]["name"] =  $Name;
 	}
 
 ?><html>
@@ -163,33 +146,9 @@ function validateEdit(F)
 
 <?php echo $Msg; ?>
 
-<div class="ui-tabs ui-widget ui-widget-content ui-corner-all" style="width: 510px; padding: 10px; text-align: center; margin-left: auto; margin-right: auto; margin-bottom: 10px; ">
-	<form method="post" action="<?php echo basename(__FILE__); ?>">
-		<input type="hidden" name="action" value="load">
-		<select name="image">
-			<option value=""></option>
-			<?php foreach($ISOs AS $ISO => $Params) { ?>
-				<option value="<?php echo $ISO; ?>" <?php echo $_REQUEST["image"] == $ISO ? 'selected="selected"' : ''; ?>>
-					<?php
-					echo $Params["name"];
-					switch($Params["stat"])
-						{
-						case "2":						 		break;
-						case "1":	echo " (Partial Conf)";		break;
-						default:	echo " (Not Conf)";			break;
-						}
-					?></option>
-			<?php } ?>
-		</select>
-		<button type="submit" class="tool_cnf" style="width: 75px">Load</button>
-	</form>
-</div>
-
-<?php if($_REQUEST["action"] == "load" && $_REQUEST["image"]) { $tCap = parse_ini_file($Root."\\isos\\".$_REQUEST["image"],true); $tCap = $tCap["iso"]; ?>
 	<div class="ui-tabs ui-widget ui-widget-content ui-corner-all" style="width: 800px; padding: 10px; text-align: center; margin-left: auto; margin-right: auto; margin-bottom: 10px; ">
 		<form method="post" action="<?php echo basename(__FILE__); ?>" onsubmit="return validateEdit(this);">
 		<input type="hidden" name="action" value="save">
-		<input type="hidden" name="filename" value="<?php echo $_REQUEST['image']; ?>">
 		<table border='0' cellspacing="0" cellpadding="5" width="800" class="zebra">
 			<?php foreach($isoFields AS $isoField => $Params) { ?>
 				<tr valign="top">
@@ -207,7 +166,6 @@ function validateEdit(F)
 										if(substr($iso,-4) != ".twc")
 										{
 										echo "	<option value='".basename($iso)."'";
-										echo ($tCap[$isoField] == basename($iso) ? " selected='selected'" : "");
 										echo ">".basename($iso)."</option>\n";
 										}
 									}
@@ -246,7 +204,6 @@ function validateEdit(F)
 			<button type="submit" class="tool_cnf">Save Configuration</button>
 		</form>
 	</div>
-<?php } ?>
 
 </body>
 </html>
