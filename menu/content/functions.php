@@ -46,6 +46,15 @@ if($config["boot"]["images"])
 	if($config["boot"]["images"]) { $config["boot"]["images"] = unserialize($config["boot"]["images"]); }
 	}
 
+// ############################################################################
+// # If Refresh is toggled then enable debugging
+// ############################################################################
+
+if($config["options"]["showrefresh"])
+	{
+	ini_set('error_reporting', E_ALL);
+	ini_set('display_errors', 1);
+	}
 
 // ############################################################################
 // # Include .TWC Required Fields
@@ -56,8 +65,37 @@ include_once "iso_fields.php";
 include_once "iso_recipes.php";
 
 // ############################################################################
-// # Graphic Boolean
+// # Actual Function Definitions
 // ############################################################################
+
+/**
+* Recursive Glob
+*
+* @param string  $path     Path to glob into - Must end with a slash
+* @param string  $pattern  Pattern to pass to glob
+* @param int     $flags    Any needed GLOB_X flags
+* @return array  returns array containing files
+*/
+
+// Shamelessly copied from php@hm2k.org on http://php.net/manual/en/function.glob.php
+// Swapped Parameter order though... We'll always provide a path
+
+function rglob($path='', $pattern='*', $flags = 0)
+	{
+    $paths=glob($path.'*', GLOB_MARK|GLOB_ONLYDIR|GLOB_NOSORT);
+    $files=glob($path.$pattern, $flags);
+    foreach ($paths as $path) { $files=array_merge($files,rglob($path, $pattern, $flags)); }
+    return $files;
+	}
+
+/**
+* Graphic Boolean
+*
+* @param string  $statement  boolean statement to evaluate
+* @param enum    $type       text, image, or image_tag
+* @param int     $size       size in pixels
+* @return mixed  returns one of a <span> tag, <img> tag or image file name.
+*/
 
 function boolMark($statement, $type = "", $size = "")
 	{
@@ -80,9 +118,12 @@ function boolMark($statement, $type = "", $size = "")
 		}
 	}
 
-// ############################################################################
-// # Clean File Name
-// ############################################################################
+/**
+* Clean File Name
+*
+* @param string  $fileName  Filename to clean to (universally?) safe characters
+* @return string
+*/
 
 function cleanFileName($fileName)
 	{
@@ -92,83 +133,6 @@ function cleanFileName($fileName)
 	while(strpos($fileName,"__") !== false) { $fileName = str_replace("__","_",$fileName); }
 	$fileName = trim($fileName,"_");
 	return $fileName;
-	}
-
-// ############################################################################
-// # File Get Functions
-// ############################################################################
-
-function getFiles($dirName, $StartOver = true)
-	{
-	global $Files;
-
-	if($StartOver) { $Files = array(); }
-
-	if(is_dir($dirName))
-		{
-		$SubDirs = array();
-		$dirList = array();
-		$dirA = scandir($dirName);
-
-		if(count($dirA))
-			{
-			sort($dirA);
-			foreach($dirA AS $dir)
-				{ if(!in_array($dir,array(".",".."))) { $dirList[] = $dir; } }
-			}
-
-		if(count($dirList))
-			{
-			foreach($dirList AS $entry)
-				{
-				if(is_dir($dirName."\\".$entry))
-					{ $SubDirs[] = $dirName."\\".$entry; }
-				else
-					{ $Files[] = $dirName."\\".$entry; }
-				}
-			}
-
-		if(count($SubDirs))
-			{
-			foreach($SubDirs AS $SubDir)
-				{ getFiles($SubDir,false); }
-			}
-		}
-
-	return;
-	}
-
-// ############################################################################
-// # Get Directories in Specified Folder
-// ############################################################################
-
-function getDirs($dirName)
-	{
-	global $Dirs;
-
-	if(is_dir($dirName))
-		{
-		$SubDirs = array();
-		$dirA = scandir($dirName);
-
-		if(count($dirA))
-			{
-			sort($dirA);
-			foreach($dirA AS $dir)
-				{ if(!in_array($dir,array(".",".."))) { $dirList[] = $dir; } }
-			}
-
-		if(count($dirList))
-			{
-			foreach($dirList AS $entry)
-				{
-				if(is_dir($dirName."\\".$entry))
-					{ $Dirs[] = $dirName."\\".$entry; }
-				}
-			}
-		}
-
-	return;
 	}
 
 // ############################################################################
@@ -213,6 +177,7 @@ function buildDefaultConfig()
 	$config["logo"]["line3"]			= TWC_VERSION;
 
 	$config["options"]["showrefresh"]	= false;
+	$config["options"]["exec_ext"]		= "exe,com,bat";
 
 	$config["jQuery"]["ui_ver"]			= "1.8.16";
 	$config["jQuery"]["jq_ver"]			= "1.7.1";

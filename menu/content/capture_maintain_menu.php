@@ -43,7 +43,7 @@ $(function() {
 <style type="text/css">
 
 BODY { font-size: 70%; }
-BUTTON { width: 150px; }
+BUTTON { width: 170px; }
 
 </style>
 </head>

@@ -24,9 +24,6 @@
 include "functions.php";
 $Root = getRoot();
 
-global $Dirs;
-getDirs($Root."\\output");
-
 if(!is_array($_REQUEST["searchdir"]))
 	{ $_REQUEST["searchdir"] = array(); }
 else
@@ -75,7 +72,7 @@ FORM { padding: 0px; margin: 0px; }
 				<td>Capture:</td>
 				<td>
 					<select name="searchdir[]" size="10" multiple="multiple" style="width: 300px;">
-					<?php foreach($Dirs AS $Dir) { ?>
+					<?php foreach(glob($Root."\\output\\*",GLOB_ONLYDIR) AS $Dir) { ?>
 						<option value="<?php echo urlencode($Dir) ?>"
 							<?php echo in_array($Dir,$_REQUEST["searchdir"]) ? 'selected="selected"' : ''; ?>
 							><?php echo $Dir; ?></option>

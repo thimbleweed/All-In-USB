@@ -27,6 +27,7 @@
 
 include "functions.php";
 $Root = getRoot();
+if(!is_array($_REQUEST["config"])) { $_REQUEST["config"] = array(); }
 
 // ############################################################################
 // # If "Saving" Remove the Files
@@ -40,14 +41,6 @@ if($_REQUEST["action"] == "delete" && count($_REQUEST["config"]))
 		if(!$_REQUEST["keeptwc"]) { @unlink($Root."\\isos\\".$exe.".twc"); }
 		}
 	}
-
-// ############################################################################
-// # Get File List
-// ############################################################################
-
-global $Files;
-getFiles($Root."\\isos");
-if(!is_array($_REQUEST["config"])) { $_REQUEST["config"] = array(); }
 
 // ############################################################################
 // # Initial Parse of Boot Items

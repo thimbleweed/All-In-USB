@@ -27,6 +27,7 @@
 
 include "functions.php";
 $Root = getRoot();
+if(!is_array($_REQUEST["executable"])) { $_REQUEST["executable"] = array(); }
 
 // ############################################################################
 // # If "Saving" Remove the Files
@@ -42,18 +43,10 @@ if($_REQUEST["action"] == "delete" && count($_REQUEST["executable"]))
 	}
 
 // ############################################################################
-// # Get File List
-// ############################################################################
-
-global $Files;
-getFiles($Root."\\utilities");
-if(!is_array($_REQUEST["executable"])) { $_REQUEST["executable"] = array(); }
-
-// ############################################################################
 // # Initial Parse of Capture Tools
 // ############################################################################
 
-foreach($Files AS $File)
+foreach(glob($Root."\\utilities\\*.*") AS $File)
 	{
 	if(substr($File,-4) != ".twc")
 		{

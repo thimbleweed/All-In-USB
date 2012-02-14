@@ -27,6 +27,7 @@
 
 include "functions.php";
 $Root = getRoot();
+if(!is_array($_REQUEST["executable"])) { $_REQUEST["executable"] = array(); }
 
 // ############################################################################
 // # If Saving Build, then Write, .TWC file
@@ -41,18 +42,10 @@ if($_REQUEST["action"] == "delete" && count($_REQUEST["executable"]))
 	}
 
 // ############################################################################
-// # Get File List
-// ############################################################################
-
-global $Files;
-getFiles($Root."\\jobs");
-if(!is_array($_REQUEST["executable"])) { $_REQUEST["executable"] = array(); }
-
-// ############################################################################
 // # Initial Parse of Jobs
 // ############################################################################
 
-foreach($Files AS $File)
+foreach(glob($Root."\\jobs\\*.*") AS $File)
 	{
 	if(substr($File,-4) != ".twc")
 		{

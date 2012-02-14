@@ -25,6 +25,7 @@
 // # Define some base variables
 // ############################################################################
 
+set_time_limit(0);
 include "functions.php";
 $Root = getRoot();
 
@@ -33,7 +34,7 @@ $Root = getRoot();
 // ############################################################################
 
 if($_REQUEST["action"] == "save" && $_REQUEST["executable"])
-	{
+	{ pecho($_REQUEST["executable"]);
 	$_REQUEST["manpage"] = base64_encode(stripslashes(trim($_REQUEST["manpage"])));
 
 	$twc = "[capture]\n";
@@ -45,7 +46,7 @@ if($_REQUEST["action"] == "save" && $_REQUEST["executable"])
 		$twc .= $Field .' = "'. $_REQUEST[$Field].'"'."\n";
 		}
 
-	$file = $Root."\\utilities\\".$_REQUEST["executable"].".twc";
+	$file = $_REQUEST["executable"].".twc";
 	file_put_contents($file,$twc);
 	unset($_REQUEST);
 	}
@@ -54,8 +55,15 @@ if($_REQUEST["action"] == "save" && $_REQUEST["executable"])
 // # Get File List
 // ############################################################################
 
-global $Files;
-getFiles($Root."\\utilities");
+$exts = explode(",",$config["options"]["exec_ext"]);
+
+$Files = array();
+foreach($exts AS $ext)
+	{
+	$tFiles = rglob($Root."\\utilities\\","*.".$ext);
+	$newFiles = array_merge($Files,$tFiles);
+	$Files = $newFiles;
+	}
 
 // ############################################################################
 // # Initial Parse of Capture Tools
@@ -63,25 +71,22 @@ getFiles($Root."\\utilities");
 
 foreach($Files AS $File)
 	{
-	if(substr($File,-4) != ".twc")
+	unset($Name);
+	if(is_file($File.".twc"))
 		{
-		unset($Name);
-		$tFile = str_replace($Root."\\utilities\\","",$File);
-		if(in_array($File.".twc",$Files))
-			{
-			$tCap = parse_ini_file($File.".twc",true);
-			$tCap = $tCap["capture"];
-			$Missing = false;
-			foreach($Fields AS $Field => $Params) { if($Params["required"] && !$tCap[$Field]) { $Missing = true; } }
-			$Stat = $Missing ? 1 : 2;
-			$Tabs[$tCap["tab"]] = 1;
-			$Name = trim(trim(trim($tFile." - ".$tCap["name"]),"-"));
-			}
-		else
-			{ $Stat = 0; }
-		$Captures[$tFile]["stat"] =  $Stat;
-		$Captures[$tFile]["name"] =  $Name ? $Name : $tFile;
+		$tCap = parse_ini_file($File.".twc",true);
+		$tCap = $tCap["capture"];
+		$Missing = false;
+		foreach($Fields AS $Field => $Params) { if($Params["required"] && !$tCap[$Field]) { $Missing = true; } }
+		$Stat = $Missing ? 1 : 2;
+		$Tabs[$tCap["tab"]] = 1;
+		$Name = trim(trim(trim($tFile." - ".$tCap["name"]),"-"));
 		}
+	else
+		{ $Stat = 0; }
+
+	$Captures[$File]["stat"] =  $Stat;
+	$Captures[$File]["name"] =  $Name ? $Name : $File;
 	}
 
 ?><html>
@@ -170,8 +175,8 @@ function validateEdit(F)
 <div class="ui-tabs ui-widget ui-widget-content ui-corner-all" style="width: 510px; padding: 10px; text-align: center; margin-left: auto; margin-right: auto; margin-bottom: 10px; ">
 	<form method="post" action="<?php echo basename(__FILE__); ?>">
 		<input type="hidden" name="action" value="load">
-		<select name="executable">
-			<option value=""></option>
+		<select name="executable" <?php if($_REQUEST["action"] != "load" || !$_REQUEST["executable"]) { echo " size='25'"; } ?>>
+			<?php if($_REQUEST["action"] == "load" && $_REQUEST["executable"]) { ?><option value=""></option><?php } ?>
 			<?php foreach($Captures AS $Capture => $Params) { ?>
 				<option value="<?php echo $Capture; ?>" <?php echo $_REQUEST["executable"] == $Capture ? 'selected="selected"' : ''; ?>>
 					<?php
@@ -185,6 +190,7 @@ function validateEdit(F)
 					?></option>
 			<?php } ?>
 		</select>
+		<?php if($_REQUEST["action"] != "load" || !$_REQUEST["executable"]) { echo "<br />"; } ?>
 		<button type="submit" class="tool_cnf" style="width: 75px">Load</button>
 	</form>
 </div>
@@ -200,7 +206,7 @@ function validateEdit(F)
 					<?php echo $_REQUEST["executable"]; ?>
 					<input type="hidden" name="executable" value="<?php echo $_REQUEST['executable']; ?>" />
 					<?php
-						$tTWC = $Root."\\utilities\\".$_REQUEST["executable"].".twc";
+						$tTWC = $_REQUEST["executable"].".twc";
 						if(is_file($tTWC))	{ $tCap = parse_ini_file($tTWC,true); $tCap = $tCap["capture"]; }
 						else				{ $tCap = array(); }
 					?>
@@ -250,6 +256,9 @@ function validateEdit(F)
 					</td>
 				</tr>
 			<?php } ?>
+				<tr>
+					<td colspan="2" align="center">Use %tmpfile% if you need to specify an output file. It will be moved to the capture output folder automatically.</td>
+				</tr>
 			</table>
 			<button type="submit" class="tool_cnf">Save Configuration</button>
 		</form>

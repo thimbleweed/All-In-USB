@@ -23,33 +23,23 @@
 
 include "functions.php";
 $Root = getRoot();
-global $Files;
-getFiles($Root."\\utilities");
 
 // ############################################################################
 // # Initial Parse of Capture Tools
 // ############################################################################
 
-foreach($Files AS $File)
+foreach(rglob($Root."\\utilities\\","*.twc") AS $File)
 	{
-	if(substr($File,-4) != ".twc")
+	$tCap = parse_ini_file($File,true);
+	if(count($tCap))
 		{
-		unset($Name);
-		$tFile = str_replace($Root."\\utilities\\","",$File);
-		if(in_array($File.".twc",$Files))
+		$tCap = $tCap["capture"];
+		$Missing = false;
+		foreach($Fields AS $Field => $Params) { if($Params["required"] && !$tCap[$Field]) { $Missing = true; } }
+		if(!$Missing)
 			{
-			$tCap = parse_ini_file($File.".twc",true);
-			if(count($tCap))
-				{
-				$tCap = $tCap["capture"];
-				$Missing = false;
-				foreach($Fields AS $Field => $Params) { if($Params["required"] && !$tCap[$Field]) { $Missing = true; } }
-				if(!$Missing)
-					{
-					$tCap["manpage"] = base64_decode($tCap["manpage"]);
-					$Captures[$tCap["tab"]][$tFile] = $tCap;
-					}
-				}
+			$tCap["manpage"] = base64_decode($tCap["manpage"]);
+			$Captures[$tCap["tab"]][$File] = $tCap;
 			}
 		}
 	}
@@ -92,8 +82,8 @@ if($_REQUEST["captureName"])
 		if($Params["enable"])
 			{
 			$RunList[$Run]["nice"] = $Params["nice"];
-			$RunList[$Run]["cmd"]  = "%1\\utilities\\".$Params["exe"]." ".$Params["args"];
-			$RunList[$Run]["log"]  = "%1\\output\\%computername%\\".$Run."-%computername%.txt";
+			$RunList[$Run]["cmd"]  = str_replace($Root."\\","%1\\",$Params["exe"]." ".$Params["args"]);
+			$RunList[$Run]["log"]  = "%1\\output\\%computername%\\".substr(basename($Run),0,-4)."-%computername%.txt";
 			}
 		}
 
@@ -123,14 +113,24 @@ if($_REQUEST["captureName"])
 			$CapBatch[] = "REM ###########################################################################";
 			$CapBatch[] = "";
 			$CapBatch[] = "ECHO ".$RunParams["nice"];
-			$CapBatch[] = "IF NOT EXIST ".$RunParams["log"]." ECHO ".$RunParams["nice"]." >> ".$RunParams["log"];
-			$CapBatch[] = "ECHO . >> ".$RunParams["log"];
-			$CapBatch[] = "ECHO %date% %time% >> ".$RunParams["log"];
-			$CapBatch[] = "CALL ".$RunParams["cmd"]." >> ".$RunParams["log"];
+
+			if(strpos($RunParams["cmd"],'%tmpfile%') === false)
+				{
+				$CapBatch[] = "IF NOT EXIST ".$RunParams["log"]." ECHO ".$RunParams["nice"]." >> ".$RunParams["log"];
+				$CapBatch[] = "ECHO . >> ".$RunParams["log"];
+				$CapBatch[] = "ECHO %date% %time% >> ".$RunParams["log"];
+				$CapBatch[] = "CALL ".$RunParams["cmd"]." >> ".$RunParams["log"];
+				}
+			else
+				{
+				$RunParams["log"] = str_replace("-%computername%.txt","-%computername%".str_replace(".","",strtoupper(uniqid("-",true))).".txt",$RunParams["log"]);
+				$CapBatch[] = "CALL ".str_replace("%tmpfile%",$RunParams["log"],$RunParams["cmd"]);
+				}
+
 			$CapBatch[] = "";
 			}
 
-		$CapString = trim(implode("\n",$CapBatch));
+		$CapString = trim(implode("\r\n",$CapBatch));
 
 		$FileName = cleanFileName($CaptureName);
 		if(file_put_contents($Root."\\jobs\\".$FileName.".bat",$CapString))
@@ -221,9 +221,9 @@ body { font-size: 70%; }
 					<div class="capture_body">
 						<div class="capture_exe">
 							Command &raquo;
-							<input type="hidden" name="<?php echo $id; ?>_exe" value="<?php echo $Capture; ?>" />
+							<input type="hidden" name="<?php echo $id; ?>_exe" value="<?php echo substr($Capture,0,-4); ?>" />
 							<input type="hidden" name="<?php echo $id; ?>_nice" value="<?php echo $Params["name"]; ?>" />
-							<?php echo $Capture; ?>
+							<?php echo substr($Capture,0,-4); ?>
 						</div>
 						<div class="capture_args">
 							<input type="text" width="30" name="<?php echo $id; ?>_args" value="<?php echo $Params["defaults"]; ?>" />

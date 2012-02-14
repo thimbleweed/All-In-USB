@@ -78,15 +78,12 @@ A { text-decoration: none; color: black; }
 		</ul>
 	<?php } ?>
 
-	<?php if(is_dir($Root."\\isos")) { ?>
-		<li>Bootable Images</li>
-		<ul>
-			<?php if(!glob($Root."\\isos\\*.*")) { echo "<li>!! No ISOs Installed !!</li>\n"; } ?>
-			<li><a href="iso_items.php" target="content">Configure Boot Items</a>
-			<li><a href="iso_bootmenu.php" target="content">Configure Boot Menu</a>
-			<li><a href="iso_boot_build.php" target="content">Rebuild Boot Menu</a>
-		</ul>
-	<?php }?>
+	<li>Bootable Images</li>
+	<ul>
+		<li><a href="iso_items.php" target="content">Configure Boot Items</a>
+		<li><a href="iso_bootmenu.php" target="content">Configure Boot Menu</a>
+		<li><a href="iso_boot_build.php" target="content">Rebuild Boot Menu</a>
+	</ul>
 
 	<li>Tools
 	<ul>
@@ -94,17 +91,15 @@ A { text-decoration: none; color: black; }
 
 	</ul>
 
-	<?php if(is_dir($Root."\\utilities")) { ?>
-		<li>Live Capture</li>
-		<ul>
-			<li><a href="capture_maintain.php" target="content">Maintain Tools</a>
-			<li><a href="capture_build.php" target="content">Build Capture</a>
-			<li><a href="capture_execute.php" target="content">Execute Capture</a>
-			<li><a href="capture_remove.php" target="content">Remove Prior Capture</a>
-		</ul>
-	<?php } ?>
+	<li>Live Capture</li>
+	<ul>
+		<li><a href="capture_maintain.php" target="content">Maintain Tools</a>
+		<li><a href="capture_build.php" target="content">Build Capture</a>
+		<li><a href="capture_execute.php" target="content">Execute Capture</a>
+		<li><a href="capture_remove.php" target="content">Remove Prior Capture</a>
+	</ul>
 
-	<?php if(is_dir($Root."\\output") && count(glob($Root."\\output\\*.*"))) { ?>
+	<?php if(count(glob($Root."\\output\\*.*"))) { ?>
 		<li>Post Capture</li>
 		<ul>
 			<li><a href="post_quick.php" target="content">Quick Search</a>

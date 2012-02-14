@@ -30,20 +30,13 @@ ini_set('implicit_flush', 1);
 
 include "functions.php";
 $Root = getRoot();
-
-// ############################################################################
-// # Get File List
-// ############################################################################
-
-global $Files;
-getFiles($Root."\\jobs");
 if(!is_array($_REQUEST["executable"])) { $_REQUEST["executable"] = array(); }
 
 // ############################################################################
 // # Initial Parse of Jobs
 // ############################################################################
 
-foreach($Files AS $File)
+foreach(glob($Root."\\jobs\\*.*") AS $File)
 	{
 	if(substr($File,-4) != ".twc")
 		{
@@ -117,6 +110,7 @@ if($_REQUEST["action"] == "execute" && count($_REQUEST["executable"]))
 		echo str_repeat(" ", 256)."<h3>Executing: ".$exe."</h3>\n";
 		flush();
 		echo str_repeat(" ", 256)."<pre>\n";
+		pecho($Root."\\jobs\\".$exe." ".$Root);
 		$output = shell_exec($Root."\\jobs\\".$exe." ".$Root);
 		echo $output;
 		echo "</pre>\n";

@@ -24,8 +24,7 @@
 include "functions.php";
 $Root = getRoot();
 
-$checkFiles = glob($Root."\\utilities\\check\\*.*");
-
+$checkFiles = glob($Root."\\utilities\\check\\*.twc");
 foreach($checkFiles AS $checkFile)
 	{
 	$tChk = parse_ini_file($checkFile);
