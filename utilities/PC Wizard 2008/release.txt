@@ -1,0 +1,35 @@
+--------------------------------------------------------
+PC Wizard - Release Notes
+Copyright (C) 1996-2008 Laurent KUTIL & Franck DELATTRE
+
+Date format : dd/mm/yyyy
+--------------------------------------------------------
+
+02/01/2008
+- Windows Security Center module updated
+- Multi monitors detection rewritten
+- SplashScreen rewritten to load faster
+
+04/01/2008
+- SATA enumeration on some Intel ICH5 bug fixed
+- nVidia Video Card Bios Message identification
+
+09/01/2008
+- Memory XMP Profile Timings support.
+
+13/01/2008
+- Intel Celeron Dual-Core E1200 processor support
+- Intel Pentium Dual-Core T2370 processor support
+- Intel Core 2 Duo E8190/U7700 processor support
+
+16/01/2008
+- SATA-600 support
+
+18/01/2008
+- Intel Celeron Dual-Core E1600 processor support
+- Microsoft .NET Framework 3.5 detection
+
+20/01/2008
+- More AT8-ACS device detailled information support
+- ADT7463 +12v computation mode corrected
+- updated to 2008.1.83

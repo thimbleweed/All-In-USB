@@ -27,7 +27,7 @@ $Root = getRoot();
 if(!$_FILES["file"]["error"] && $_FILES["file"]["size"])
 	{
 	if(move_uploaded_file($_FILES["file"]["tmp_name"],$Root."\\utilities\\".$_REQUEST["filename"]))
-		{ $Msg = "Uploaded Successful: <a href='capture_maintain_config.php?action=load&executable=".$_REQUEST["filename"]."'>Configure</a>"; }
+		{ $Msg = "Uploaded Successful: <a href='capture_maintain_config.php?action=load&executable=".$Root."\\utilities\\".$_REQUEST["filename"]."'>Configure</a>"; }
 	else
 		{ $Msg = "Upload failed"; }
 

@@ -1,0 +1,5 @@
+[capture]
+name = "Encrypted Disk Detector"
+tab = "Files"
+manpage = "Lz8gLSBXaGF0IHlvdSdyZSByZWFkaW5nIG5vdw0KL2JhdGNoIC0gTm8gcHJvbXB0IGZvciB1c2VyIGlucHV0IGF0IHRoZSBlbmQgb2YgcHJvY2Vzc2luZywganVzdCBleGl0Lg=="
+defaults = "/batch"

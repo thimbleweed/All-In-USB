@@ -1,0 +1,79 @@
+--------------------------------------------------------
+PC Wizard - History Notes
+Copyright (C) 1996-2008 Laurent KUTIL & Franck DELATTRE
+--------------------------------------------------------
+
+2008.1.82
+--------------------------------------------------------
+- Intel Chipset 5000 series and 7300 FB-DIMM Memory detection fixed
+- Intel Chipset 3200/3210 recognition
+- ASB100 sensor support bug fixed with some motherboard
+- Asus Blitz Extreme motherboard support
+- Intel Core 2 Solo U2200/U2100 processor support
+- Intel Centrino Solo Platform support
+- Intel 5100/5400 Chipset preliminary support
+- Intel X38 chipset preliminary support
+- Intel X5482/X5472/E5472/X5450/E5450 processor support
+- Hard Disk Temperature Monitoring fixed
+- Opera Internet browser support
+- Intel Xeon 5128/5138 processor preliminary support
+- EPP Memory profile bug fixed
+- Intel X9000/T9500/T9300/T8300/T8100 Mobile processor preliminary support
+- Intel QX9770 processor preliminary support
+- New voltage computation method for some AMD NPT Family
+- SMSC DME1737 sensor support on Intel D101GGC motherboard corrected
+- Intel Core 2 processor stepping B1/C0 support
+- AMD Phenom processor Voltage (VID/minVID/maxVID) computation support
+- AMD Phenom processor Temperature computation support
+- AMD PHenom processor minFID/maxFID and Northbridge multiplier support
+- New Jedec memory manufacturer code support
+- AMD K10 Northbridge frequency computation support
+- nVidia 8800GTX initial frequencies support
+- AMD K10 Northbridge PCI Extended Configuration Space (ECS) support
+- nVidia MCP68 chipset support
+- nVidia C51 and G8800GTS video information fixed
+- Intel Core 2 Duo T5470/T5300/T5270/T5250 processor support
+- Intel Core 2 Duo E2200 processor support
+- Gigabyte P35-DS4 motherboard support
+- Web Update application updated.
+- Sensors realtime resolution change to 2 sec.
+- Add BitDefender Internet Security 2008 support
+- AMD Athlon 64 LE processors support
+- ActiveX Controls enumeration support
+- Intel X48 Chipset preliminary support
+- AMD K10 UnGanging Memory Mode detection support
+
+2008.1.81
+--------------------------------------------------------
+- AMD X2 5000+ Black Edition processor support
+- IT8712F with Gigabyte nForce2 support fixed
+- 802.11 Network SSID enumeration bug fixed
+- 802.11 Network Encryption Status (WEP, TKIP, AES)
+- New High Definition Audio (HDA) Codec support
+- Intel C2D Core processor temperature updated for G0 stepping
+- Preliminary Asus Maximus Formula motherboard monitoring support
+- PC Wizard Settings application logo support
+- Pentium Dual-Core T2060, T2080, T2310, T2330 processor support
+- SSE5 detection fixed.
+- nVidia GeForce MCP61 Video card detection bug fixed
+- Intel Xeon "Cranford" processor detection bug fixed
+- prelimirary support to nVidia GeForce G78, G98 video card
+- Analog Devices AD1988B HDA Codec support
+- RTF report corrected to be compatible with Microsoft WORD format
+- DirectX 9.0c release month detection fixed
+- Intel 7300 chipset preliminary support
+- Gigabyte 965P-S3, 965P-DS3 motherboard support
+- Fixed some system freeze during hardware summary detection
+- Gigabyte ODIN Power Supply Hardware Monitoring preliminary support
+- AMD Athlon 64 X2 "Brisbane" BH-G2 processor support
+- AMD Phenom X3 "Toliman" processor preliminary support
+- Pentium M processor Model number bug fixed
+- AMD Athlon 64 LE processor preliminary support
+- Intel Tolapai chipset preliminary support
+- Changes into the commandline parameters (see readme.txt file)
+- Intel T5250 processor support
+- Intel T2050/T2250/T2350/T2450 processor support
+- ATI Radeon HD3870, HD3500, HD2900, HD2600, HD2400 premiminary support
+- RealTime Hardware Monitoring functions rewritten
+- Interface with MotherBoard Monitor application will no longer supported
+- DDR3 Memory detection bug fixed

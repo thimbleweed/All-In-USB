@@ -1,0 +1,5 @@
+[capture]
+name = "TrueCrypt Volume Hunt"
+tab = "Files"
+manpage = "QWxsb3dlZCBvcHRpb25zIGZvciBUQ0h1bnQ6DQogIC1kIFsgLS1kaXIgXSBhcmcgICAgICBUaGUgZGlyZWN0b3J5IHRvIHNlYXJjaCAocmVjdXJzaXZlKS4NCiAgLWggWyAtLWhlbHAgXSAgICAgICAgIFByaW50IHRoaXMgbWVzc2FnZSBhbmQgZXhpdC4NCiAgLXYgWyAtLXZlcmJvc2UgXSAgICAgIFByaW50IHZlcmJvc2Ugb3V0cHV0Lg=="
+defaults = "-d c:\"
