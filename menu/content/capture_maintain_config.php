@@ -242,8 +242,8 @@ function validateEdit(F)
 									if($tCap["manpage"]) { echo base64_decode($tCap["manpage"]); }
 									echo '</textarea>'."\n";
 									echo "<br />Attempt Auto-populate &raquo;\n";
-									echo "<input type='button' value='--help' style='font-size: small;' onclick='window.open(\"capture_maintain_gethelp.php?type=unix&fld=".$Field."&exe=".$_REQUEST["executable"]."\")' />\n";
-									echo "<input type='button' value='/?' style='font-size: small;' onclick='window.open(\"capture_maintain_gethelp.php?type=win&fld=".$Field."&exe=".$_REQUEST["executable"]."\")' />\n";
+									echo "<input type='button' value='--help' style='font-size: small;' onclick='window.open(\"capture_maintain_gethelp.php?type=unix&fld=".$Field."&exe=".urlencode($_REQUEST["executable"])."\")' />\n";
+									echo "<input type='button' value='/?' style='font-size: small;' onclick='window.open(\"capture_maintain_gethelp.php?type=win&fld=".$Field."&exe=".urlencode($_REQUEST["executable"])."\")' />\n";
 									echo "<small>(Pop-Up Window may have text. Please ignore.)</small>";
 									break;
 

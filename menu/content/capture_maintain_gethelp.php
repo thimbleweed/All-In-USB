@@ -24,16 +24,26 @@
 include "functions.php";
 $Root = getRoot();
 
-$exe = $Root."\\utilities\\".$_REQUEST["exe"];
+$exe = $_REQUEST["exe"];
+
+if(strpos($exe,"\\utilities\\sysint") !== false) { $exe .= " /accepteula"; }
 
 switch($_REQUEST["type"])
 	{
-	case "unix":	$exe .= " --help";	break;
-	case "win":		$exe .= " /?";		break;
+	case "unix":	$exe .= " --help 2> help_error";	break;
+	case "win":		$exe .= " /? 2> help_error";		break;
 	}
 
-$output = shell_exec($exe);
+$output = trim(shell_exec($exe));
 $outputA = explode("\n",$output);
+
+if(is_file("help_error"))
+	{
+	$error = trim(file_get_contents("help_error"));
+	unlink("help_error");
+	$errorA = explode("\n",$error);
+	foreach($errorA AS $errorLine) { $outputA[] = $errorLine; }
+	}
 
 ?><html>
 <head>
@@ -45,7 +55,7 @@ function fillInHelp()
 	tFld = window.opener.document.getElementById("<?php echo $_REQUEST['fld']; ?>");
 	tFld.value = "";
 	<?php foreach($outputA AS $line) { ?>
-	tFld.value += "<?php echo str_replace('"',"'",$line); ?>"+"\n";
+	tFld.value += "<?php echo str_replace('"',"'",trim($line)); ?>"+"\n";
 	<?php } ?>
 	window.close();
 	}

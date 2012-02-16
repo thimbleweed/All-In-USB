@@ -1,0 +1,5 @@
+[capture]
+name = "Streams Viewer"
+tab = "Files"
+manpage = "U3RyZWFtcyB2MS41NiAtIEVudW1lcmF0ZSBhbHRlcm5hdGUgTlRGUyBkYXRhIHN0cmVhbXMNCkNvcHlyaWdodCAoQykgMTk5OS0yMDA3IE1hcmsgUnVzc2lub3ZpY2gNClN5c2ludGVybmFscyAtIHd3dy5zeXNpbnRlcm5hbHMuY29tDQoNCnVzYWdlOiBzdHJlYW1zIFstc10gWy1kXSA8ZmlsZSBvciBkaXJlY3Rvcnk+DQotcyAgICAgUmVjdXJzZSBzdWJkaXJlY3Rvcmllcw0KLWQgICAgIERlbGV0ZSBzdHJlYW1z"
+defaults = "-s C:\"

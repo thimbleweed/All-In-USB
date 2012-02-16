@@ -1,0 +1,5 @@
+[capture]
+name = "Logon Sessions - MUST BE RUN AS ADMIN"
+tab = "Users"
+manpage = "TG9nb25zZXNpb25zIHYxLjIxDQpDb3B5cmlnaHQgKEMpIDIwMDQtMjAxMCBCcnljZSBDb2dzd2VsbCBhbmQgTWFyayBSdXNzaW5vdmljaA0KU3lzaW50ZXJuYWxzIC0gd3d3dy5zeXNpbnRlcm5hbHMuY29tDQoNClVzYWdlOiBsb2dvbnNlc3Npb25zIFsvcF0="
+defaults = "runas/user:"

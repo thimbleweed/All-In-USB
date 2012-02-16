@@ -1,0 +1,5 @@
+[capture]
+name = "Kernel Dump - MUST BE RUN AS ADMIN"
+tab = "Hardware"
+manpage = "TGl2ZUtkIHY1LjAgLSBFeGVjdXRlIGtkL3dpbmRiZyBvbiBhIGxpdmUgc3lzdGVtDQpTeXNpbnRlcm5hbHMgLSB3d3cuc3lzaW50ZXJuYWxzLmNvbQ0KQ29weXJpZ2h0IChDKSAyMDAwLTIwMTAgTWFyayBSdXNzaW5vdmljaCBhbmQgS2VuIEpvaG5zb24NCg0KTGl2ZWtkIHJlcXVpcmVzIGFkbWluaXN0cmF0aXZlIHJpZ2h0cy4gWW91IG11c3QgcnVuIGl0IGZyb20gYW4NCmVsZXZhdGVkIGNvbW1hbmQgcHJvbXB0Lg=="
+defaults = "runas/user:"

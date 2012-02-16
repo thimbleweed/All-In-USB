@@ -1,0 +1,5 @@
+[capture]
+name = "Disk Extent Dumper"
+tab = "Hardware"
+manpage = "RGlzayBFeHRlbnQgRHVtcGVyIHYxLjENCkNvcHlyaWdodCAoQykgMjAwMS0yMDA3IE1hcmsgUnVzc2lub3ZpY2gNClN5c2ludGVybmFscyAtIHd3dy5zeXNpbnRlcm5hbHMuY29tDQoNCmRpc2tleHQgW2RyaXZlMSBbZHJpdmUyXSAuLi5dDQpEcml2ZTEgYW5kIGRyaXZlMiBhcmUgZHJpdmUgbGV0dGVycy4NCk9tbWl0aW5nIGRyaXZlcyBkdW1wcyBleHRlbnRzIGZvciBhbGwgZHJpdmVzLg=="
+defaults = ""

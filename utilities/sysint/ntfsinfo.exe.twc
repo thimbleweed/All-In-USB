@@ -1,0 +1,5 @@
+[capture]
+name = "NTFS Info - MUST BE RUN AS ADMIN"
+tab = "Hardware"
+manpage = "VXNhZ2U6IG50ZnNpbmZvIDxkcml2ZSBsZXR0ZXI+"
+defaults = "runas/user:"
