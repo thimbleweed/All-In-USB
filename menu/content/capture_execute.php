@@ -102,7 +102,7 @@ FORM { padding: 0px; margin: 0px; }
 if($_REQUEST["action"] == "execute" && count($_REQUEST["executable"]))
 	{
 	$machineName = trim(shell_exec("echo %computername%"));
-	echo "<h2>Full output available at: ".$Root."\\output\\".$machineName."\\</h2>";
+	echo "<h2>Full output available at: ".$Root."\\output\\".$machineName."-".date("Ymd-His")."\\</h2>";
 
 	set_time_limit(0);
 	foreach($_REQUEST["executable"] AS $exe)
