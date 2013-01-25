@@ -83,7 +83,7 @@ if($_REQUEST["captureName"])
 			{
 			$RunList[$Run]["nice"] = $Params["nice"];
 			$RunList[$Run]["cmd"]  = str_replace($Root."\\","%1\\",$Params["exe"]." ".$Params["args"]);
-			$RunList[$Run]["log"]  = "%1\\output\\%computername%\\".substr(basename($Run),0,-4)."-%computername%.txt";
+			$RunList[$Run]["log"]  = "%1\\output\\%computername%".date("Ymd-His")."\\".substr(basename($Run),0,-4)."-%computername%.txt";
 			}
 		}
 
