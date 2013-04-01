@@ -67,6 +67,8 @@ if($_REQUEST["captureName"])
 	$CaptureName = $_REQUEST["captureName"];
 	unset($_REQUEST["captureName"]);
 
+	$CaptureDate = date("Ymd-His");
+
 	foreach($_REQUEST AS $Name => $Value)
 		{
 		$NameA = explode("_",$Name);
@@ -83,7 +85,7 @@ if($_REQUEST["captureName"])
 			{
 			$RunList[$Run]["nice"] = $Params["nice"];
 			$RunList[$Run]["cmd"]  = str_replace($Root."\\","%1\\",$Params["exe"]." ".$Params["args"]);
-			$RunList[$Run]["log"]  = "%1\\output\\%computername%".date("Ymd-His")."\\".substr(basename($Run),0,-4)."-%computername%.txt";
+			$RunList[$Run]["log"]  = "%1\\output\\%computername%\\".$CaptureDate."\\".substr(basename($Run),0,-4)."-%computername%.txt";
 			}
 		}
 
@@ -102,8 +104,9 @@ if($_REQUEST["captureName"])
 
 		$CapBatch[] = "REM Create Output Directories";
 		$CapBatch[] = 'CD /D %1';
-		$CapBatch[] = 'IF NOT EXIST %1\output MD %1\output';
-		$CapBatch[] = 'IF NOT EXIST %1\output\%computername% MD %1\output\%computername%';
+		$CapBatch[] = 'IF NOT EXIST %1\\output MD %1\\output';
+		$CapBatch[] = 'IF NOT EXIST %1\\output\\%computername% MD %1\\output\\%computername%';
+		$CapBatch[] = 'IF NOT EXIST %1\\output\\%computername%\\'.$CaptureDate.' MD %1\\output\\%computername%\\'.$CaptureDate;
 		$CapBatch[] = "";
 
 		foreach($RunList AS $RunID => $RunParams)
