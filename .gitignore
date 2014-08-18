@@ -1,6 +1,13 @@
-# Exclude the Web Cache
+# Exclude various Cache and Output folders
 
 QtWebCache/
+ScreenCap/
+
+# Exclude PortableApps Installation
+
+Documents/
+PortableApps/
+/Start.exe
 
 # Exclude PHP Error logs
 
