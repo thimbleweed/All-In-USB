@@ -1,4 +1,4 @@
-<?php
+f--<?php
 
 /* ********************************************************************\
 |                                                                      |
@@ -245,6 +245,7 @@ function validateEdit(F)
 									echo "<input type='button' value='--help' style='font-size: small;' onclick='window.open(\"capture_maintain_gethelp.php?type=unix&fld=".$Field."&exe=".urlencode($_REQUEST["executable"])."\")' />\n";
 									echo "<input type='button' value='/?' style='font-size: small;' onclick='window.open(\"capture_maintain_gethelp.php?type=win&fld=".$Field."&exe=".urlencode($_REQUEST["executable"])."\")' />\n";
 									echo "<small>(Pop-Up Window may have text. Please ignore.)</small>";
+									echo "<br />Auto-Populate will usually fail on GUI tools.";
 									break;
 
 								default:
