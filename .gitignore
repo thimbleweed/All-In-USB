@@ -1,0 +1,12 @@
+# Exclude the Web Cache
+
+QtWebCache/
+
+# Exclude PHP Error logs
+
+php_errors.log
+
+# Exclude files created by running utilities
+
+utilities/MUICacheView.cfg
+utilities/OperaPassView.cfg
